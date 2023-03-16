@@ -1,12 +1,12 @@
-#include <stdio.h>
+    #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <semaphore.h>
 #define BUFFER_SIZE 5
 // buffer
 int buffer[BUFFER_SIZE];
-int buffer_index,block_index=-1;
-int block[100];
+int buffer_index,block_p_index=-1,block_c_index=-1;
+int block_p[100],block_c[100];
 // semaphores
 sem_t empty;
 sem_t full;
@@ -23,14 +23,14 @@ int remove_item() {
 void *producer(void *param) {
     int item;
     while (1) {
-        item = rand() % 10; 
+        item = rand() % 10;
         sem_wait(&empty); // decrement the empty semaphore
-        while(block_index!=-1)
+        while(block_p_index!=-1)
         {
-            sem_wait(&mutex); 
-            buffer[buffer_index++] = block[block_index];
-            printf("Producer added item from blocked %d\n", block[block_index]);// add item to buffer
-            block_index--;
+            sem_wait(&mutex);
+            buffer[buffer_index++] = block_p[block_p_index];
+            printf("Producer added item from blocked %d\n", block_p[block_p_index]);// add item to buffer
+            block_p_index--;
             sem_post(&mutex);
         }
         sem_wait(&mutex); // enter critical section
@@ -40,8 +40,8 @@ void *producer(void *param) {
         if(buffer_index==BUFFER_SIZE-1)
         {
             printf("Buffer full.Process blocked\n");
-            block_index++;
-            block[block_index] = item;
+            block_p_index++;
+            block_p[block_p_index] = item;
         }
         // sleep for a random amount of time
         sleep(rand() % 3);
@@ -51,10 +51,28 @@ void *consumer(void *param) {
     int item;
     while (1) {
         sem_wait(&full); // decrement the full semaphore
+        /*while(block_c_index!=-1)
+        {
+            if(buffer[buffer_index]==block_c[block_c_index])
+            {
+                sem_wait(&mutex);
+                int item = buffer[--buffer_index];
+                printf("Consumer consumed item from blocked %d\n", block_c[block_c_index]);// remove item from buffer
+                block_c_index--;
+                sem_post(&mutex);
+            }
+
+        }*/
         sem_wait(&mutex); // enter critical section
         item = remove_item(); // remove item from buffer
         sem_post(&mutex); // exit critical section
         sem_post(&empty); // increment the empty semaphore
+        /*if(buffer_index==0)
+        {
+            printf("Buffer empty.Process blocked\n");
+            block_c_index++;
+            block_c[block_c_index] = item;
+        }*/
         // sleep for a random amount of time
         sleep(rand() % 3);
     }

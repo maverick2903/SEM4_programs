@@ -61,3 +61,27 @@ for pair in pairs:
 val_disp = value_list.copy()
 val_disp.reverse()
 print(val_disp)
+
+#bin_error = input("Enter 8 bit binary Hamming code with 1 bit error: ")
+bin_error = '011000010110'
+print("Error code: "+bin_error)
+bin_error = bin_error[::-1]
+cb1 = [1,3,5,7,9,11]
+cb2 = [2,3,6,7,10,11]
+cb3 = [4,5,6,7,12]
+cb4 = [8,9,10,11,12]
+
+check_bits = []
+cb_all = [cb1,cb2,cb3,cb4]
+sum = 0
+for cb in cb_all:
+    for index in cb:
+        sum += int(bin_error[index-1])
+    if sum%2==0: check_bits.append('0')
+    else: check_bits.append('1')
+    sum=0
+
+check_disp = check_bits.copy()
+check_disp.reverse()
+error_pos = int("".join(check_disp),2)
+print("Error position: ",error_pos)

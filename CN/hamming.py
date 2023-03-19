@@ -1,9 +1,9 @@
-""" sentence = input("Enter a sentence: ") 
+sentence = input("Enter a character: ") 
 binary1 = ""
 for ch in sentence:
-    binary1 += '0'+str(bin(ord(ch)))[2:]"""
+    binary1 += '0'+str(bin(ord(ch)))[2:]
 
-binary1 = '01100001'
+#binary1 = '01100001'
 binary = binary1[::-1] 
 print(binary1)
 
@@ -60,10 +60,10 @@ for pair in pairs:
 
 val_disp = value_list.copy()
 val_disp.reverse()
-print(val_disp)
+print("Hamming code for the character: "+"".join(val_disp))
 
-#bin_error = input("Enter 8 bit binary Hamming code with 1 bit error: ")
-bin_error = '011000010110'
+bin_error = input("Enter 8 bit binary Hamming code with 1 bit error: ")
+#bin_error = '011000010110'
 print("Error code: "+bin_error)
 bin_error = bin_error[::-1]
 cb1 = [1,3,5,7,9,11]

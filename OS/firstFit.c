@@ -28,17 +28,15 @@ void main()
     {
         if(process_sizes[j] <= mem_sizes[i])
         {
-            printf("for %d , %d  %d",j,process_sizes[j],mem_sizes[i]);
             mem_loc[j] = j+1;
             j++;
         }
     }
-    printf("Final\n");
     for(int i =0;i<n;i++)
     {
         if(mem_loc[i])
         {
-            printf("Process size = %d goes in location %d\n",process_sizes[i],mem_loc[i]);
+            printf("Process size = %d goes in location %d\n",process_sizes[i],mem_sizes[mem_loc[i]]);
         }
         else{printf("%d not allocated to memory",process_sizes[i]);}
     }

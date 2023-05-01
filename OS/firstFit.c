@@ -28,7 +28,7 @@ void main()
     {
         if(process_sizes[j] <= mem_sizes[i])
         {
-            mem_loc[j] = j+1;
+            mem_loc[j] = i;
             j++;
         }
     }

@@ -28,9 +28,8 @@ void main()
     }
     tot_movement += abs(pos - req[init]);
     v[init] = 1;
-    printf("min %d\n",req[init]);
-    int k = 0;
-    
+
+    int min_index = 0;
     for(int j=0;j<n;j++)
     {
         int min_diff = 9999;
@@ -39,15 +38,13 @@ void main()
             if(abs(req[i]-req[init]) < min_diff && v[i]!=1)
             {
                 min_diff = abs(req[i]-req[init]);
-                k = i;
+                min_index = i;
             }
         }
-        tot_movement += abs(req[init] - req[k]);
-        v[k] = 1;
-        init = k;
+        tot_movement += abs(req[init] - req[min_index]);
+        v[min_index] = 1;
+        init = min_index;
     }
 
-
-    printf("new min %d\n",init);
     printf("Total distance: %d",tot_movement);
 }

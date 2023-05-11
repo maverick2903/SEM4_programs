@@ -2,43 +2,50 @@
 
 void main()
 {
-    int n;
+    int n_proc;
     //int process_sizes[100];
     int n_mem;
     //int mem_sizes[100];
     int mem_loc[100];
-    printf("Enter no of memory partitions\n");
-    scanf("%d",&n_mem);
+    int visited[100];
     int mem_sizes[] = {200, 400, 600, 500, 300, 250};
     int process_sizes[] = {357, 210, 468, 491};
+    printf("Enter no of memory partitions\n");
+    scanf("%d",&n_mem);
     /* printf("Enter size\n");
     for(int i=0;i<n_mem;i++)
     {
         scanf("%d",&mem_sizes[i]);
     } */
     printf("Enter no of processes\n");
-    scanf("%d",&n);
+    scanf("%d",&n_proc);
     /* printf("Enter size\n");
     for(int i=0;i<n;i++)
     {
         scanf("%d",&process_sizes[i]);
     } */
 
-    int k = 0;
-    for(int i=0;i<n;i++)
+    for(int i=0;i<n_mem;i++)
+    {
+        visited[i] = 0;
+    }
+
+    int mem_index = 0;
+    for(int i=0;i<n_proc;i++)
     {
         int min_diff = 9999;
         for(int j=0;j<n_mem;j++)
         {
-            if(mem_sizes[j]-process_sizes[i]<min_diff && mem_sizes[j]-process_sizes[i]>=0)
+            if(mem_sizes[j]-process_sizes[i]<min_diff && mem_sizes[j]-process_sizes[i]>=0 && visited[j]==0)
             {
                 min_diff = mem_sizes[j]-process_sizes[i];
-                mem_loc[k] = j;
+                mem_loc[mem_index] = j;
             }
         }
-        k++;
+        visited[mem_loc[mem_index]] = 1;
+        mem_index++;
     }
-    for(int i =0;i<n;i++)
+    for(int i =0;i<n_proc;i++)
     {
         if(mem_loc[i])
         {

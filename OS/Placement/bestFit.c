@@ -30,6 +30,11 @@ void main()
         visited[i] = 0;
     }
 
+    for(int i=0;i<n_mem;i++)
+    {
+        mem_loc[i] = -1;
+    }
+    
     int mem_index = 0;
     for(int i=0;i<n_proc;i++)
     {
@@ -47,7 +52,7 @@ void main()
     }
     for(int i =0;i<n_proc;i++)
     {
-        if(mem_loc[i])
+        if(mem_loc[i]!=-1)
         {
             printf("Process size = %d goes in location %d\n",process_sizes[i],mem_sizes[mem_loc[i]]);
         }

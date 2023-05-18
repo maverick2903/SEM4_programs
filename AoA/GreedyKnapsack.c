@@ -3,7 +3,6 @@
 int main() 
 {
     int n = 5;
-    int place[100] = {0,0,0,0};
     float frac[100] = {0,0,0,0};
     float profit;
     int wt[] = {5, 10, 15, 22, 25};
@@ -36,7 +35,6 @@ int main()
     {
         if(wt[i]<=W)
         {
-            place[i] = 1;
             frac[i] = 1.0;
             printf("Selected %d\t",wt[i]);
             profit += pr[i];
@@ -45,10 +43,9 @@ int main()
         }
         else if(wt[i]>W && W!=0)
         {
-            place[i] = 1;
             printf("Selected partially %d\t",wt[i]);            
-            frac[i] = (float)(wt[i]-W)/wt[i];
-            profit += (wt[i]-W)*pw[i];
+            frac[i] = (float)W/wt[i];
+            profit += W*pw[i];
             printf("Profit %.2f\n",profit);             
             break;
         }
@@ -57,11 +54,6 @@ int main()
     for(int i=0;i<n;i++)
     {
         printf("%d\t\t",wt[i]);
-    }
-    printf("\n");
-    for(int i=0;i<n;i++)
-    {
-        printf("%d\t\t",place[i]);
     }
     printf("\n");
     for(int i=0;i<n;i++)
